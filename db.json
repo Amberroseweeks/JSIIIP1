@@ -1,0 +1,72 @@
+{
+  "restaurants": [
+    {
+      "id": 1,
+      "name": "Vedge",
+      "address": "1221 Locust St, Philadelphia, PA 19107",
+      "imgUrl": "https://s3-media0.fl.yelpcdn.com/bphoto/TMFHugi3h9V7x-fDBFTpgA/o.jpg"
+    },
+    {
+      "id": 2,
+      "name": "Los Cabillos",
+      "address": "1651 E Passyunk Ave, Philadelphia, PA 19148",
+      "imgUrl": "https://i1.wp.com/aneverydayvegan.com/wp-content/uploads/2020/09/20200822_172420.jpg?resize=800%2C420&ssl=1"
+    },
+    {
+      "id": 3,
+      "name": "Tattooed Mom's",
+      "address": "530 South St, Philadelphia, PA 19147",
+      "imgUrl": "https://www.tattooedmomphilly.com/wp-content/uploads/2010/12/07-tots-n-tots-n-tots.jpg"
+    },
+    {
+      "id": 4,
+      "name": "Side Car Bar and Grill",
+      "address": "2201 Christian St, Philadelphia, PA 19146",
+      "imgUrl": "https://images.squarespace-cdn.com/content/v1/56ddc935356fb09a3c3747ae/1563496001690-0KDES4UPFAOY227CBK5J/ke17ZwdGBToddI8pDm48kABZLTk17e_QHSohQ7a11sB7gQa3H78H3Y0txjaiv_0fDoOvxcdMmMKkDsyUqMSsMWxHk725yiiHCCLfrh8O1z5QPOohDIaIeljMHgDF5CVlOqpeNLcJ80NK65_fV7S1UYrFJAufGxPTjws1Gln6cMdMReA5CTXK_HJqxxP9a4TDnvDAEkOjC6oNMG0zMsNICg/3AB13594-07EF-4802-974B-1F78F456366C.jpeg?format=1500w"
+    },
+    {
+      "id": 5
+    },
+    {
+      "id": 6
+    }
+  ],
+  "reviews": [
+    {
+      "id": 1,
+      "restaurantId": 1,
+      "stars": 5,
+      "text": "Impossibly good vegan food"
+    },
+    {
+      "id": 2,
+      "restaurantId": 1,
+      "stars": 2,
+      "text": "I didn't know they meant vedge literally"
+    },
+    {
+      "id": 3,
+      "restaurantId": 2,
+      "stars": 5,
+      "text": "My favorite place on Passyunk!"
+    },
+    {
+      "id": 4,
+      "restaurantId": 2,
+      "stars": 3,
+      "text": "Good fajitas."
+    },
+    {
+      "id": 5,
+      "restaurantId": 2,
+      "stars": 3,
+      "text": "Nice tots."
+    },
+    {
+      "id": 4,
+      "restaurantId": 3,
+      "stars": 3,
+      "text": "Great drinks."
+    }
+  ]
+}
