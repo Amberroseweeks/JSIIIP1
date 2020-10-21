@@ -34,3 +34,83 @@ Grading criteria:
 
 */
 
+
+let resultsDiv = document.getElementById("results");
+let form = document.getElementById("reviewformadd");
+let reviews;
+let fullReviews;
+
+console.log(resultsDiv);
+
+const getRestaurant = async () => {
+    const response = await fetch("http://localhost:3000/restaurants");
+    const restaurants = await response.json();
+
+
+      return restaurants;
+      
+};
+
+getRestaurant();
+
+const getReviews = async () => {
+    //GET request - retieve data from an API
+    const response = await fetch("http://localhost:3000/reviews");
+    const reviews = await response.json();
+    
+
+    reviews.forEach((getReviews, index) => {
+    });
+    console.log(reviews);
+    return reviews;
+    
+};
+
+getReviews();
+
+
+const getReviewsWithRestaurants = async () => {
+    const reviews = await getReviews();
+    const restaurants = await getRestaurant();
+
+    const infoCard = document.getElementsByClassName("infoCard");
+        const reviewrestaurantIdList = [];
+        const reviewRestIds = reviews.restaurantId;
+
+    
+        reviewrestaurantIdList.push(reviewRestIds);
+
+
+    restaurants.forEach((restaurants, index, review, reviewsWithRest) => {
+
+        // const reviewAverage = 
+
+        resultsDiv.innerHTML += 
+        `<div class="card">
+        <h2 class="card-title">${restaurants.name}</h2>
+        <div class="card-author subtle">${restaurants.address}</span><span class="card-number card-circle subtle">${restaurants.id}</div>
+        <div> <img src="${restaurants.imgUrl}" class="card-media"></img></div>
+        <p>${reviews[index].stars}, ${reviews[index].text}, ${reviews[index].restaurantId}</p>
+        
+        <div class="card">
+        <p>${review[index].stars}, ${review[index].text}, ${review.restaurantId}</p>
+        </div>
+
+        <h2 class="review-title">Leave a review for ${restaurants.name}.</h2>
+        <label class="card-author subtle">Restaurant name</label>
+          <input>
+        <label class="card-author subtle">How was your experience?</label>     
+          <textarea class="form-control" rows="5" id="comment"></textarea>
+          <div class="checkbox">
+            <label class="card-author subtle"><input type="checkbox" name="remember"> Remember me</label>
+          </div>
+          <button type="submit" class="submitbutton">Submit</button>
+      </div>
+    </div>
+        </div>`;
+    });
+
+      return restaurants;
+}
+
+getReviewsWithRestaurants();
