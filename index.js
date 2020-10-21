@@ -81,6 +81,29 @@ const getReviewsWithRestaurants = async () => {
         reviewrestaurantIdList.push(reviewRestIds);
 
 
+        reviews.forEach((reviews, index) => {
+
+            console.log(reviews.restaurantId);
+        })
+    
+        reviews.forEach((review) => {
+            const restaurant = restaurants.find((restaurant) => {
+                reviewsWithRest = restaurant.id === review.restaurantId;
+                console.log(reviewsWithRest);
+                return reviewsWithRest;
+            });
+    
+    
+            let fullReviews = `<div class="card">
+            <p>${review.stars}, ${review.text}, ${review.restaurantId}</p>
+            </div>`;
+    
+            resultsDiv.innerHTML += fullReviews;
+            
+    
+        });
+
+
     restaurants.forEach((restaurants, index, review, reviewsWithRest) => {
 
         // const reviewAverage = 
