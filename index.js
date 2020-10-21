@@ -137,3 +137,52 @@ const getReviewsWithRestaurants = async () => {
 }
 
 getReviewsWithRestaurants();
+
+const createReview = async () => {
+    const newReview = {
+        restaurantId: 1,
+        stars: 4,
+        text: "Cool place",
+    };
+
+
+    // POST request - create a record in a database
+    await fetch("http://localhost:3000/reviews", {
+        method: "POST", 
+        body: JSON.stringify(newReview),
+        headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+        },
+    });
+};
+
+const createRestaurant = async (name, address, imgUrl) => {
+    await fetch("http://localhost:3000/restaurants", {
+        method: "POST",
+        body: JSON.stringify({
+            name,
+            address,
+            imgUrl,
+        }),
+        headers: {
+            Accept: "application/json",
+            "Content-Type": "application/jason",
+        },
+    });
+    showRestaurants();
+
+
+};
+
+const showRestaurants = async () => {
+    const restaurants = await getReviewsWithRestaurants();
+    const restaurantHTML = restaurants.map((restaurant) => {
+        return `<p>${restaurant.name}</p>`;
+    });
+
+    const restaurantDiv = document.getElementsByClassName("restaurants")[0];
+    restaurantDiv.innerHTML = restaurantHTML.join("");
+};
+
+showRestaurants();
