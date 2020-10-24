@@ -39,8 +39,11 @@ let resultsDiv = document.getElementById("results");
 let form = document.getElementById("reviewformadd");
 let reviews;
 let fullReviews;
+let reviewcontainer = document.getElementById("reviewcontainer");
+let starRating =[];
+let avg;
+let myString;
 
-console.log(resultsDiv);
 
 const getRestaurant = async () => {
     const response = await fetch("http://localhost:3000/restaurants");
@@ -61,65 +64,47 @@ const getReviews = async () => {
 
     reviews.forEach((getReviews, index) => {
     });
-    console.log(reviews);
     return reviews;
     
 };
 
 getReviews();
 
+const filterReviews = async () => {
 
-const getReviewsWithRestaurants = async () => {
+
     const reviews = await getReviews();
     const restaurants = await getRestaurant();
 
-    const infoCard = document.getElementsByClassName("infoCard");
-        const reviewrestaurantIdList = [];
-        const reviewRestIds = reviews.restaurantId;
-
-    
-        reviewrestaurantIdList.push(reviewRestIds);
 
 
-        reviews.forEach((reviews, index) => {
-
-            console.log(reviews.restaurantId);
-        })
-    
-        reviews.forEach((review) => {
-            const restaurant = restaurants.find((restaurant) => {
-                reviewsWithRest = restaurant.id === review.restaurantId;
-                console.log(reviewsWithRest);
-                return reviewsWithRest;
-            });
-    
-    
-            let fullReviews = `<div class="card">
-            <p>${review.stars}, ${review.text}, ${review.restaurantId}</p>
-            </div>`;
-    
-            resultsDiv.innerHTML += fullReviews;
-            
-    
-        });
+    reviews.forEach((review, index) => {
 
 
-    restaurants.forEach((restaurants, index, review, reviewsWithRest) => {
+    let fullReviews = `<div class="card">
+    <p>${review.stars}, ${review.text}, ${review.restaurantId}</p>
+    </div>`;
+
+    const reviewsMatch = review.restaurantId === restaurants.id;
+  
+
+
+    
+
+});
+
+}
+
+
+const addReviewForm = async () => {
+    const reviews = await getReviews();
+    const restaurants = await getRestaurant();
+    const restReviews = await filterReviews();
+
+    restaurants.forEach((restaurants, index) => {
 
         // const reviewAverage = 
-
-        resultsDiv.innerHTML += 
-        `<div class="card">
-        <h2 class="card-title">${restaurants.name}</h2>
-        <div class="card-author subtle">${restaurants.address}</span><span class="card-number card-circle subtle">${restaurants.id}</div>
-        <div> <img src="${restaurants.imgUrl}" class="card-media"></img></div>
-        <p>${reviews[index].stars}, ${reviews[index].text}, ${reviews[index].restaurantId}</p>
-        
-        <div class="card">
-        <p>${review[index].stars}, ${review[index].text}, ${review.restaurantId}</p>
-        </div>
-
-        <h2 class="review-title">Leave a review for ${restaurants.name}.</h2>
+        reviewForm = ` 
         <label class="card-author subtle">Restaurant name</label>
           <input>
         <label class="card-author subtle">How was your experience?</label>     
@@ -129,14 +114,84 @@ const getReviewsWithRestaurants = async () => {
           </div>
           <button type="submit" class="submitbutton">Submit</button>
       </div>
-    </div>
-        </div>`;
+    </div>`;
+        
     });
 
       return restaurants;
+
+}
+
+addReviewForm();
+
+
+const getReviewsWithRestaurants = async () => {
+    const reviews = await getReviews();
+    const restaurants = await getRestaurant();
+    const restReviews = await filterReviews();
+
+    const infoCard = document.getElementsByClassName("infoCard");
+
+    
+    restaurants.forEach((restaurants, index,) => {
+
+        restId = restaurants.id;
+    
+        const reviewIds = reviews.filter(review => {
+         return review.restaurantId === restId;
+        });
+
+        reviewIds.forEach((reviewIds, index,) => {
+
+            starRating.push(reviews[index].stars);
+            let sum = starRating.reduce((previous, current) => current += previous);
+            let avg = sum / starRating.length;
+
+        avgReview = `${avg}`;
+
+        Reviews = `
+        <h2>Average Rating: ${avg}</h2>
+        `;
+
+        });
+const myString = JSON.stringify(reviewIds);
+const reviewString = reviewIds.id;
+
+
+var x, txt = "";
+
+for (x in reviewIds) {
+  txt += reviewIds[x] + " ";
+};
+
+        // const reviewAverage = 
+        resultsDiv.innerHTML += `<div class="card">
+        <h2 class="card-title">${restaurants.name}</h2>
+        <div class="card-author subtle">${restaurants.address}</span><span class="card-number card-circle subtle">${restaurants.id}</div>
+        <div class="card-author subtle">Average rating: ${restaurants.id} </div>
+        <div> <img src="${restaurants.imgUrl}" class="card-media"></img></div>
+        <div id="reviewcontainer"> 
+        ${Reviews}</div>
+        <p class="review-title"> ${myString} </p>
+        <p class="review-title"> Leave a review for ${restaurants.name} </p>
+        ${reviewForm}</div>
+        
+        `;
+
+
+        
+    });
+
+
+      return restaurants;
+
 }
 
 getReviewsWithRestaurants();
+
+
+
+
 
 const createReview = async () => {
     const newReview = {
@@ -170,7 +225,6 @@ const createRestaurant = async (name, address, imgUrl) => {
             "Content-Type": "application/jason",
         },
     });
-    showRestaurants();
 
 
 };
@@ -185,4 +239,4 @@ const showRestaurants = async () => {
     restaurantDiv.innerHTML = restaurantHTML.join("");
 };
 
-showRestaurants();
+// showRestaurants();
