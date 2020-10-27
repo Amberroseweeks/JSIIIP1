@@ -23,12 +23,6 @@
       "name": "Side Car Bar and Grill",
       "address": "2201 Christian St, Philadelphia, PA 19146",
       "imgUrl": "https://images.squarespace-cdn.com/content/v1/56ddc935356fb09a3c3747ae/1563496001690-0KDES4UPFAOY227CBK5J/ke17ZwdGBToddI8pDm48kABZLTk17e_QHSohQ7a11sB7gQa3H78H3Y0txjaiv_0fDoOvxcdMmMKkDsyUqMSsMWxHk725yiiHCCLfrh8O1z5QPOohDIaIeljMHgDF5CVlOqpeNLcJ80NK65_fV7S1UYrFJAufGxPTjws1Gln6cMdMReA5CTXK_HJqxxP9a4TDnvDAEkOjC6oNMG0zMsNICg/3AB13594-07EF-4802-974B-1F78F456366C.jpeg?format=1500w"
-    },
-    {
-      "id": 5
-    },
-    {
-      "id": 6
     }
   ],
   "reviews": [
@@ -67,6 +61,50 @@
       "restaurantId": 3,
       "stars": 3,
       "text": "Great drinks."
+    },
+    {
+      "restaurantId": 1,
+      "stars": 4,
+      "text": "testing 123",
+      "id": 6
+    },
+    {
+      "restaurantId": 1,
+      "stars": 4,
+      "text": "testing 123",
+      "id": 7
+    },
+    {
+      "restaurantId": 1,
+      "stars": 4,
+      "text": "testing 123",
+      "id": 8
+    },
+    {
+      "restaurantId": 1,
+      "stars": 4,
+      "text": "testing 123",
+      "id": 9
+    },
+    {
+      "restaurantId": 1,
+      "stars": 4,
+      "id": 10
+    },
+    {
+      "restaurantId": 1,
+      "stars": 4,
+      "id": 11
+    },
+    {
+      "restaurantId": 1,
+      "stars": 4,
+      "id": 12
+    },
+    {
+      "restaurantId": 1,
+      "stars": 4,
+      "id": 13
     }
   ]
 }
