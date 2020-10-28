@@ -184,7 +184,6 @@ const createReview = async () => {
     console.log(newReview);
     let reviewWrapper = document.getElementsByClassName("reviewWrapper");
 console.log(reviewWrapper);
-reviewWrapper.innerHTML === "hello";
 var z = document.createElement('p');
 
 
