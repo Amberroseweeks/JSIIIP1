@@ -22,13 +22,18 @@ Grading criteria:
 
 
 let resultsDiv = document.getElementById("results");
-let form = document.getElementById("reviewformadd");
 let reviews;
 let fullReviews;
 let reviewcontainer = document.getElementById("reviewcontainer");
 let starRating =[];
 let avg;
 let myString;
+let addReviewText;
+
+
+
+
+
 
 
 const getRestaurant = async () => {
@@ -72,10 +77,6 @@ const filterReviews = async () => {
     </div>`;
 
     const reviewsMatch = review.restaurantId === restaurants.id;
-  
-
-
-    
 
 });
 
@@ -89,8 +90,16 @@ const addReviewForm = async () => {
 
 
 
+
+
+
+
+
+   
  
     restaurants.forEach((restaurants, index) => {
+
+
         // const reviewAverage = 
         reviewForm = ` 
 <div>
@@ -99,12 +108,11 @@ const addReviewForm = async () => {
       </div>
 
       <fieldset class="rating">
-      <input type="radio" id="star5" name="rating" value="5" /><label class = "full" for="star5" title="Awesome - 5 stars"></label>
       <input type="radio" id="star1" name="rating" value="1" /><label class = "full" for="star1" title="Sucks big time - 1 star"></label>
       <input type="radio" id="star2" name="rating" value="2" /><label class = "full" for="star2" title="Kinda bad - 2 stars"></label>
       <input type="radio" id="star3" name="rating" value="3" /><label class = "full" for="star3" title="Meh - 3 stars"></label>
       <input type="radio" id="star4" name="rating" value="4" /><label class = "full" for="star4" title="Pretty good - 4 stars"></label>
-            
+      <input type="radio" id="star5" name="rating" value="5" /><label class = "full" for="star5" title="Awesome - 5 stars"></label>   
 
   </fieldset>
 
@@ -113,6 +121,9 @@ const addReviewForm = async () => {
     </div>
     </div>
     `;
+
+
+
 
 
 
@@ -126,11 +137,114 @@ const addReviewForm = async () => {
 addReviewForm();
 
 
+
+
+
+const createReview = async () => {
+
+
+
+
+    const formArray = [];
+    const xyz = document.getElementsByClassName("form-control");
+    let formInput = xyz[0];
+
+
+    let text = formInput.value;
+    formArray.push(xyz);
+
+    
+
+    const newArray = formArray.map(formArray => formArray);
+    console.log(newArray[0].length);
+
+
+    formArray.forEach((formArray, index) => {
+
+});
+
+
+    const newReview = {
+        restaurantId: 1,
+        stars: 4,
+        text: text
+    };
+
+
+    // POST request - create a record in a database
+    const newestReview = await fetch("http://localhost:3000/reviews", {
+        method: "POST", 
+        body: JSON.stringify(newReview),
+        headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+        },
+    });
+
+    console.log(newReview);
+    let reviewWrapper = document.getElementsByClassName("reviewWrapper");
+console.log(reviewWrapper);
+reviewWrapper.innerHTML === "hello";
+var z = document.createElement('p');
+
+
+z.innerHTML = JSON.stringify(newReview);
+document.getElementById("newReviewContainer").appendChild(z);
+
+};
+
+
+
+
+
+
+
+//target star id to receive star rating
+const createReviewStars = async () => {
+
+
+    const oneStar = document.getElementById("star1");
+    const twoStar = document.getElementById("star2");
+    const threeStar = document.getElementById("star3");
+    const fourStar = document.getElementById("star4");
+    const fiveStar = document.getElementById("star5");
+//testing the connection, currently it's null
+    const testing = () => {
+        console.log("this is working now");
+
+    };
+
+    oneStar.addEventListener("click", testing());
+
+      twoStar.addEventListener("click", function() {
+        console.log("This star is awesome! x2");
+      });
+
+      threeStar.addEventListener("click", function() {
+        console.log("This star is awesome! x3");
+      });
+
+      fourStar.addEventListener("click", function() {
+        console.log("This star is awesome! x4");
+      });
+
+      fiveStar.addEventListener("click", function() {
+        console.log("This star is awesome! x5");
+      });
+
+
+
+};
+
+createReviewStars();
+
+//print the restaurants and reviews with the average star rating
 const getReviewsWithRestaurants = async () => {
     const reviews = await getReviews();
     const restaurants = await getRestaurant();
     const restReviews = await filterReviews();
     const infoCard = document.getElementsByClassName("infoCard");
+    // const addReviewText = addReviewText();
     restaurants.forEach((restaurants, index,) => {
         restId = restaurants.id;
     
@@ -150,31 +264,32 @@ const getReviewsWithRestaurants = async () => {
         <h2>Average Rating: ${avg}</h2>
         `;
 
+
+
+
+
         });
 
         sortReviewsArray = [];
-
 let sortReviews = reviews[index].stars;
         sortReviewsArray.push(reviewIds);
         sortReviewsArray.sort();
-const myString = JSON.stringify(sortReviewsArray);
+const myString = JSON.stringify(sortReviewsArray, null, ' ');
 const textReviewsFull = sortReviewsArray.join(",");
 const reviewString = reviewIds.id;
 
-
-var x, txt = "";
-
-        // const reviewAverage = 
+        // create the information cards that hold the restaurant info, reviews, and form
         resultsDiv.innerHTML += `<div class="card">
         <h2 class="card-title">${restaurants.name}</h2>
         <div class="card-author subtle">${restaurants.address}</span><span class="card-number card-circle subtle">${restaurants.id}</div>
-        <div class="card-author subtle">Average rating: ${restaurants.id} </div>
         <div> <img src="${restaurants.imgUrl}" class="card-media"></img></div>
-        <div id="reviewcontainer"> 
+        <div id="reviewcontainer" class="reviewWrapper"> 
         ${Reviews}</div>
         <p class="review-title"> ${myString} </p>
+        <div id="newReviewContainer"></div>
         <p class="review-title"> Leave a review for ${restaurants.name} </p>
         ${reviewForm}</div>
+        
         
         `;
 
@@ -190,74 +305,7 @@ var x, txt = "";
 getReviewsWithRestaurants();
 
 
-
-const createReview = async () => {
-
-
-    const formArray = [];
-    const xyz = document.getElementsByClassName("form-control");
-
-    formArray.push(xyz);
-    
-
-    formArray.forEach((formArray, index,) => {
-
-
-    
-});
-let text = formArray.value.join("");
-
-
-    const newReview = {
-        restaurantId: 1,
-        stars: 4,
-        text
-    };
-
-
-    // POST request - create a record in a database
-    await fetch("http://localhost:3000/reviews", {
-        method: "POST", 
-        body: JSON.stringify(newReview),
-        headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-        },
-    });
-};
-
-const createRestaurant = async (name, address, imgUrl) => {
-    await fetch("http://localhost:3000/restaurants", {
-        method: "POST",
-        body: JSON.stringify({
-            name,
-            address,
-            imgUrl,
-        }),
-        headers: {
-            Accept: "application/json",
-            "Content-Type": "application/jason",
-        },
-    });
-
-
-};
-
-const showRestaurants = async () => {
-    const restaurants = await getReviewsWithRestaurants();
-    const restaurantHTML = restaurants.map((restaurant) => {
-        return `<p>${restaurant.name}</p>`;
-    });
-
-    const restaurantDiv = document.getElementsByClassName("restaurants")[0];
-    restaurantDiv.innerHTML = restaurantHTML.join("");
-};
-
-// showRestaurants();
-
-
 const addNewReview = async () => {
-    let starRating = document.getElementById("stars".innerHTML);
     
 
     await fetch("http://localhost:3000/reviews", {
@@ -275,4 +323,3 @@ const addNewReview = async () => {
   };
 
   addNewReview();
-

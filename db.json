@@ -57,54 +57,22 @@
       "text": "Nice tots."
     },
     {
-      "id": 4,
-      "restaurantId": 3,
+      "id": 6,
+      "restaurantId": 4,
       "stars": 3,
       "text": "Great drinks."
     },
     {
-      "restaurantId": 1,
+      "id": 7,
+      "restaurantId": 3,
       "stars": 4,
-      "text": "testing 123",
-      "id": 6
+      "text": "Great spot to get cheap beer!"
     },
     {
-      "restaurantId": 1,
-      "stars": 4,
-      "text": "testing 123",
-      "id": 7
-    },
-    {
-      "restaurantId": 1,
-      "stars": 4,
-      "text": "testing 123",
-      "id": 8
-    },
-    {
-      "restaurantId": 1,
-      "stars": 4,
-      "text": "testing 123",
-      "id": 9
-    },
-    {
-      "restaurantId": 1,
-      "stars": 4,
-      "id": 10
-    },
-    {
-      "restaurantId": 1,
-      "stars": 4,
-      "id": 11
-    },
-    {
-      "restaurantId": 1,
-      "stars": 4,
-      "id": 12
-    },
-    {
-      "restaurantId": 1,
-      "stars": 4,
-      "id": 13
+      "id": 8,
+      "restaurantId": 4,
+      "stars": 5,
+      "text": "Love it."
     }
   ]
 }
