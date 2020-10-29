@@ -390,10 +390,10 @@ const addNewReview = async () => {
     console.log(reviewForm);
     console.log("This works...");
 
-    if (reviewForm.style.display === "block") {
-        reviewForm.style.display = "none";
-    } else {
+    if (reviewForm.style.display === "none") {
         reviewForm.style.display = "block";
+    } else {
+        reviewForm.style.display = "none";
 
     
 }
