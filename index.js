@@ -101,6 +101,8 @@ const addReviewForm = async () => {
     restaurants.forEach((restaurants, index) => {
 
 
+
+
         // const reviewAverage = 
         reviewForm = ` 
 <div id="reviewform" class="reviewform">
@@ -143,9 +145,6 @@ addReviewForm();
 
 
 const createReview = async () => {
-
-
-
 
     const formArray = [];
     const xyz = document.getElementsByClassName("form-control");
@@ -242,7 +241,7 @@ const getReviewsWithRestaurants = async () => {
     const restaurants = await getRestaurant();
     const restReviews = await filterReviews();
     const infoCard = document.getElementsByClassName("infoCard");
-    reviewForm = document.getElementById("reviewform");
+
     // const addReviewText = addReviewText();
     restaurants.forEach((restaurants, index,) => {
         restId = restaurants.id;
@@ -302,12 +301,9 @@ getReviewsOk(sortReviewsArray);
 
 reviewsDisplay = getReviewsOk(sortReviewsArray);
 
-const showReviewForm = () => {
-    reviewForm.classList.remove("reviewform");
-    
-}
 
-// showReviewForm();
+
+
 
 const textReviewsFull = sortReviewsArray.join(",");
 const reviewString = reviewIds.id;
@@ -352,6 +348,8 @@ getReviewsWithRestaurants();
 const addNewReview = async () => {
     
 
+
+
     await fetch("http://localhost:3000/reviews", {
       method: "POST",
       body: JSON.stringify({
@@ -367,3 +365,40 @@ const addNewReview = async () => {
   };
 
   addNewReview();
+
+  window.addEventListener('load', (event) => {
+
+    //     reviewForm = document.getElementsByClassName("review");
+    //     console.log(document.getElementById("reviewform"));
+    
+    //     if (reviewForm.style.display === "none") {
+    //         reviewForm.style.display = "block";
+    //     } else {
+    //         reviewForm.style.display = "none";
+        
+    // }
+    
+
+    console.log('page is fully loaded');
+  });
+
+
+
+  const showReviewForm = async () => {
+    // // reviewForm.classList.add("display");
+    reviewForm = document.getElementById("reviewform");
+    console.log(reviewForm);
+    console.log("This works...");
+
+    if (reviewForm.style.display === "block") {
+        reviewForm.style.display = "none";
+    } else {
+        reviewForm.style.display = "block";
+
+    
+}
+
+  };
+
+
+  

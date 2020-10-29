@@ -10,9 +10,9 @@
 
 
   .reviewform {
-    display: none;
     margin-left: 30px;
       margin: 40px;
+      display: inline-block;
       
   }
 
@@ -150,6 +150,10 @@
 
   }
 
+  .display {
+    display: inline-block;
+  }
+
   .accordion {
     background-color: #eee;
     color: #444;
@@ -169,7 +173,7 @@
   
   .panel {
     padding: 0 18px;
-    display: none;
+
     background-color: white;
     overflow: hidden;
   }
@@ -234,7 +238,7 @@
   }
 
   .reviews {
-    display: none;
+
   }
 
 
