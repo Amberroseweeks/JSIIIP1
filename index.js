@@ -255,7 +255,9 @@ const getReviewsWithRestaurants = async () => {
 
             starRating.push(reviews[index].stars);
             let sum = starRating.reduce((previous, current) => current += previous);
-            let avg = sum / starRating.length;
+            let avg = Math.round(sum / starRating.length*100)/100;
+            console.log(Math.round(avg*100)/100);
+            
 
         avgReview = `<p class="averagerating" (${avg}) </p>`;
 
@@ -312,12 +314,21 @@ const reviewString = reviewIds.id;
 
         // create the information cards that hold the restaurant info, reviews, and form
         resultsDiv.innerHTML += `<div class="card">
+        
         <div> <img src="${restaurants.imgUrl}" class="card-media"></img></div>
+        
+        <div class="card-content-bg">
         <div class="card-number card-circle subtle">${restaurants.id}</div>
-        <h2 class="card-title ">${restaurants.name} </h2><span class="averagerating">(${Reviews})</span>
+        <h2 class="card-title ">${restaurants.name} (<span class="averagerating">${Reviews}</span>)
+        
         <div class="card-author subtle">${restaurants.address}</span></div>
+        
+        </div>
+        
+        <div class="arrow-down"></div>
         <div id="reviewcontainer" class="reviewWrapper"> 
         </div>
+        
         ${reviewlist}
         <div id="newReviewContainer"></div>
         <button type="submit" id="submit" onclick="showReviewForm()" class="reviewbutton">Leave a review</button>

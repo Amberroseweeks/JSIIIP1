@@ -16,6 +16,35 @@
       
   }
 
+  .card-content-bg {
+    background: #f2f2f2;
+    padding-bottom: 30px;
+  }
+
+  .arrow-up {
+    width: 0px; 
+    height: 0px; 
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+    
+    border-bottom: 20px solid white;
+    position: absolute;
+    margin-left: 45%;
+    z-index: 2;
+  }
+
+  .arrow-down {
+    width: 0; 
+    height: 0; 
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+    
+    border-top: 20px solid #f2f2f2;
+    position: absolute;
+    margin-left: 45%;
+    z-index: 2;
+  }
+
   .form-control{
 
     width: 75%;
@@ -23,6 +52,7 @@
   }
 
   .submitbutton {
+    
     margin-left: 20%;
     margin-bottom: 20px;
 
@@ -38,9 +68,10 @@
 
 
 .reviewbutton {
+  margin-top: 20px;
   margin-left: 20%;
   margin-bottom: 20px;
-  border-radius: 60px;
+  border-radius: none;
   width: 60%;
   display: inline-block;
   background-color: #4b8cfb;
@@ -48,13 +79,14 @@
   font-size: 18px;
   cursor: pointer;
   border: none !important;
-  padding: 5px;
+  padding: 15px;
 }
   
   
   .subtle {
     color: #aaa;
     margin-left: 30px;
+    margin-bottom: 30px;
   }
 
   .red {
@@ -104,11 +136,11 @@
   }
   
   .card-author {
-    margin-left: 30px;
     display: block;
     font-size: 12px;
     letter-spacing: .5px;
     text-transform: uppercase;
+    margin-bottom: 20px;
   }
   
   .card-title {
@@ -196,10 +228,8 @@
   }
 
   .averagerating {
-    margin-left: 30px;
     color: #FFD700;
     font-weight: 600;
-    font-kerning: none;
     font-size: 30px;
   }
 
