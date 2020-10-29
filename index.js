@@ -29,6 +29,7 @@ let starRating =[];
 let avg;
 let myString;
 let addReviewText;
+let reviewsWithStars;
 
 
 
@@ -102,10 +103,10 @@ const addReviewForm = async () => {
 
         // const reviewAverage = 
         reviewForm = ` 
-<div>
+<div id="reviewform" class="reviewform">
         <label class="card-author subtle">How was your experience?</label>     
           <textarea class="form-control" rows="5"></textarea>
-      </div>
+      
 
       <fieldset class="rating">
       <input type="radio" id="star1" name="rating" value="1" /><label class = "full" for="star1" title="Sucks big time - 1 star"></label>
@@ -118,6 +119,7 @@ const addReviewForm = async () => {
 
   <button type="submit" id="submit" onclick="createReview ()" class="submitbutton">Submit${restaurants.id}</button>
   
+    </div>
     </div>
     </div>
     `;
@@ -156,7 +158,7 @@ const createReview = async () => {
     
 
     const newArray = formArray.map(formArray => formArray);
-    console.log(newArray[0].length);
+
 
 
     formArray.forEach((formArray, index) => {
@@ -181,9 +183,9 @@ const createReview = async () => {
         },
     });
 
-    console.log(newReview);
+    
     let reviewWrapper = document.getElementsByClassName("reviewWrapper");
-console.log(reviewWrapper);
+
 var z = document.createElement('p');
 
 
@@ -191,9 +193,6 @@ z.innerHTML = JSON.stringify(newReview);
 document.getElementById("newReviewContainer").appendChild(z);
 
 };
-
-
-
 
 
 
@@ -209,26 +208,26 @@ const createReviewStars = async () => {
     const fiveStar = document.getElementById("star5");
 //testing the connection, currently it's null
     const testing = () => {
-        console.log("this is working now");
+        
 
     };
 
     oneStar.addEventListener("click", testing());
 
       twoStar.addEventListener("click", function() {
-        console.log("This star is awesome! x2");
+        
       });
 
       threeStar.addEventListener("click", function() {
-        console.log("This star is awesome! x3");
+        
       });
 
       fourStar.addEventListener("click", function() {
-        console.log("This star is awesome! x4");
+       
       });
 
       fiveStar.addEventListener("click", function() {
-        console.log("This star is awesome! x5");
+        
       });
 
 
@@ -243,6 +242,7 @@ const getReviewsWithRestaurants = async () => {
     const restaurants = await getRestaurant();
     const restReviews = await filterReviews();
     const infoCard = document.getElementsByClassName("infoCard");
+    reviewForm = document.getElementById("reviewform");
     // const addReviewText = addReviewText();
     restaurants.forEach((restaurants, index,) => {
         restId = restaurants.id;
@@ -257,15 +257,11 @@ const getReviewsWithRestaurants = async () => {
             let sum = starRating.reduce((previous, current) => current += previous);
             let avg = sum / starRating.length;
 
-        avgReview = `${avg}`;
+        avgReview = `<p class="averagerating" (${avg}) </p>`;
 
         Reviews = `
-        <h2>Average Rating: ${avg}</h2>
+        ${avg}
         `;
-
-
-
-
 
         });
 
@@ -273,20 +269,58 @@ const getReviewsWithRestaurants = async () => {
 let sortReviews = reviews[index].stars;
         sortReviewsArray.push(reviewIds);
         sortReviewsArray.sort();
-const myString = JSON.stringify(sortReviewsArray, null, ' ');
+
+
+const reviewsOutput = sortReviewsArray.map(reviews => {
+    reviews.forEach(function (review, index) {
+
+
+        let reviewsWithStars = review.stars + " " + review.text;
+        let displayStarReviews = review.stars;
+        let displayReviewText = review.text;
+    });
+    return reviewsWithStars;
+
+})
+
+  function getReviewssIds(reviews) {
+    return reviews.map(function (review) {
+      return `<div class="reviews"> <span class="card-description review-title"> ${review.text}</span><p class="review-title"> ${review.stars}</p></div>`
+    });
+  }
+  
+  const reviewlist = getReviewssIds(reviewIds);
+const myString = sortReviewsArray
+function getReviewsOk(reviews) {
+    return reviews.map(function(review){
+        return review.text;
+    });
+}
+getReviewsOk(sortReviewsArray);
+
+reviewsDisplay = getReviewsOk(sortReviewsArray);
+
+const showReviewForm = () => {
+    reviewForm.classList.remove("reviewform");
+    
+}
+
+// showReviewForm();
+
 const textReviewsFull = sortReviewsArray.join(",");
 const reviewString = reviewIds.id;
 
         // create the information cards that hold the restaurant info, reviews, and form
         resultsDiv.innerHTML += `<div class="card">
-        <h2 class="card-title">${restaurants.name}</h2>
-        <div class="card-author subtle">${restaurants.address}</span><span class="card-number card-circle subtle">${restaurants.id}</div>
         <div> <img src="${restaurants.imgUrl}" class="card-media"></img></div>
+        <div class="card-number card-circle subtle">${restaurants.id}</div>
+        <h2 class="card-title ">${restaurants.name} </h2><span class="averagerating">(${Reviews})</span>
+        <div class="card-author subtle">${restaurants.address}</span></div>
         <div id="reviewcontainer" class="reviewWrapper"> 
-        ${Reviews}</div>
-        <p class="review-title"> ${myString} </p>
+        </div>
+        ${reviewlist}
         <div id="newReviewContainer"></div>
-        <p class="review-title"> Leave a review for ${restaurants.name} </p>
+        <button type="submit" id="submit" onclick="showReviewForm()" class="reviewbutton">Leave a review</button>
         ${reviewForm}</div>
         
         

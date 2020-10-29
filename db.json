@@ -73,6 +73,18 @@
       "restaurantId": 4,
       "stars": 5,
       "text": "Love it."
+    },
+    {
+      "restaurantId": 1,
+      "stars": 4,
+      "text": "ok",
+      "id": 9
+    },
+    {
+      "restaurantId": 1,
+      "stars": 4,
+      "text": "njkn",
+      "id": 10
     }
   ]
 }
