@@ -247,7 +247,7 @@ console.log(newReviewArray);
     function displayNewReview(newReview) {
         return newReviewArray.map(function (addNew) {
             console.log(addNew);
-          return `<div class="reviews"> <span class="card-description review-title"> ${addNew.text}</span><p class="review-title"> ${addNew.stars}</p></div>`;
+          return `<div class="newreviews"> <span class="card-description review-title"> ${addNew.text}</span><p class="review-title"> ${addNew.stars}</p></div>`;
         //   return JSON.stringify(newReview)
         });
       }
@@ -356,7 +356,7 @@ const reviewString = reviewIds.id;
         <h2 class="card-title ">${restaurants.name} (<span class="averagerating">${Reviews}</span>)
         
         <div class="card-author subtle">${restaurants.address}</span></div>
-        <div class = "card-read" onclick=onclick="showReviewsAll()"> View Reviews </div>
+        <div class="card-read" onclick="showReviewsAll()"> View Reviews </div>
         </div>
         
         <div class="arrow-down"></div>
@@ -386,8 +386,6 @@ getReviewsWithRestaurants();
 const addNewReview = async () => {
     
 
-
-
     await fetch("http://localhost:3000/reviews", {
       method: "POST",
       body: JSON.stringify({
@@ -405,60 +403,30 @@ const addNewReview = async () => {
   addNewReview();
 
 
-//   const showReviewForm = async () => {
-//     // // reviewForm.classList.add("display");
-//     reviewForm = document.getElementsByClassName("reviewformstyle");
-//     // reviewForm = document.getElementById("reviewform");
-//     console.log(reviewForm);
-// const reviewFormArray = [];
-// reviewFormArray.push(reviewForm);
-// console.log(reviewFormArray);
+  const showReviewsAll = async () => {
 
-// // reviewFormArray.forEach(function (form) {
-//     // console.log(form);
     
-//     if (reviewForm.style.display === "none") {
-//         reviewForm.style.display = "block";
-//             } else {
-//                 reviewForm.style.display = "none"; 
-//         }
-//       return;
-    
-// //   });
+showReviewsButton = document.getElementsByClassName("card-read");
+reviewsContainerAllReviews = document.getElementsByClassName("reviews");
+        
 
-//   };
-const reviewFormArray = [];
+        if (reviewsContainerAllReviews[0].style.display === "none") {
+            console.log("working...");
+            reviewsContainerAllReviews[0].style.display = "block";
+        } else {
+            reviewsContainerAllReviews[0].style.display = "none";
+    
+            
+    }
+
+    };
 
 const showReviewForm = async () => {
-    const restaurants = await getRestaurant();
 
-    // // reviewForm.classList.add("display");
-    restaurants.forEach((restaurants, index,) => {
-        let indexPosition = restaurants.id - 1;
     reviewForm = document.getElementsByClassName("reviewformstyle");
     reviewButton = document.getElementsByClassName("reviewbutton");
     
-    reviewButtonId = reviewButton[indexPosition].value;
-    console.log(reviewForm[indexPosition].style.display);
-    console.log("This works...");
-    console.log(restaurants.id);
-    console.log(reviewButtonId);
-    
-
-    
-    reviewFormArray.push(indexPosition);
-    
-
-    
-        
-    });
-
-    console.log(reviewFormArray);
-
-    let formIndex = reviewFormArray.map( formindex => {
-        // console.log(forminput);
-        console.log(formindex);
-       
+   
 
         if (reviewForm[0].style.display === "none") {
             console.log("working...");
@@ -469,36 +437,8 @@ const showReviewForm = async () => {
             
     }
 
-    });
-
-    
-
-
-
-
-
-
   };
 
 
 
-  const showReviewsAll = async () => {
 
-    
-showReviewsButton = document.getElementsByClassName("card-read");
-reviewsContainerAllReviews = document.getElementsByClassName("reviews");
-    
-        
-
-       
-
-        if (reviewsContainerAllReviews.style.display === "none") {
-            console.log("working...");
-            reviewsContainerAllReviews.style.display = "block";
-        } else {
-            reviewsContainerAllReviews.style.display = "none";
-    
-            
-    }
-
-    };
