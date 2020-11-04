@@ -9,10 +9,16 @@
   }
 
 
-  .reviewform {
+  .reviewformstyle {
     margin-left: 30px;
       margin: 40px;
-      display: inline-block;
+      display: none;
+      
+  }
+
+  .newReviewContainer {
+
+      display: block;
       
   }
 
@@ -203,19 +209,12 @@
     letter-spacing: 6px;
     margin: 5px 0 20px;
     position: relative;
-    text-align: right;
+    text-align: center;
     text-transform: uppercase;
+    cursor: pointer;
+    color: #4b8cfb;
   }
   
-  .card-read:after {
-    background-color: #b8bddd;
-    content: "";
-    display: block;
-    height: 1px;
-    position: absolute;
-    top: 9px;
-    width: 75%;
-  }
   
   .card-tag {
     float: right;
@@ -238,6 +237,7 @@
   }
 
   .reviews {
+    display: none;
 
   }
 

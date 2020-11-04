@@ -30,12 +30,7 @@ let avg;
 let myString;
 let addReviewText;
 let reviewsWithStars;
-
-
-
-
-
-
+let selectedStar = [];
 
 const getRestaurant = async () => {
     const response = await fetch("http://localhost:3000/restaurants");
@@ -89,37 +84,30 @@ const addReviewForm = async () => {
     const restaurants = await getRestaurant();
     const restReviews = await filterReviews();
 
-
-
-
-
-
-
-
    
  
-    restaurants.forEach((restaurants, index) => {
-
+    restaurants.forEach((restaurant, index) => {
+        console.log(restaurant.name);
 
 
 
         // const reviewAverage = 
         reviewForm = ` 
-<div id="reviewform" class="reviewform">
+<div class="reviewformstyle">
         <label class="card-author subtle">How was your experience?</label>     
           <textarea class="form-control" rows="5"></textarea>
       
 
-      <fieldset class="rating">
+      <fieldset class="rating" onclick="createReviewStars ()">
       <input type="radio" id="star1" name="rating" value="1" /><label class = "full" for="star1" title="Sucks big time - 1 star"></label>
-      <input type="radio" id="star2" name="rating" value="2" /><label class = "full" for="star2" title="Kinda bad - 2 stars"></label>
-      <input type="radio" id="star3" name="rating" value="3" /><label class = "full" for="star3" title="Meh - 3 stars"></label>
+      <input type="radio"  id="star2" name="rating" value="2" /><label class = "full" for="star2" title="Kinda bad - 2 stars"></label>
+      <input type="radio"  id="star3" name="rating" value="3" /><label class = "full" for="star3" title="Meh - 3 stars"></label>
       <input type="radio" id="star4" name="rating" value="4" /><label class = "full" for="star4" title="Pretty good - 4 stars"></label>
-      <input type="radio" id="star5" name="rating" value="5" /><label class = "full" for="star5" title="Awesome - 5 stars"></label>   
+      <input type="radio"  id="star5" name="rating" value="5" /><label class = "full" for="star5" title="Awesome - 5 stars"></label>   
 
   </fieldset>
 
-  <button type="submit" id="submit" onclick="createReview ()" class="submitbutton">Submit${restaurants.id}</button>
+  <button type="submit" onclick="createReview ()" class="submitbutton">Submit</button>
   
     </div>
     </div>
@@ -128,46 +116,112 @@ const addReviewForm = async () => {
 
 
 
-
-
-
         
     });
 
-      return restaurants;
+      return restaurant;
 
 }
 
 addReviewForm();
 
+const createReviewStars = async () => {
 
+
+    const oneStar = document.getElementById("star1");
+    console.log(oneStar);
+    const twoStar = document.getElementById("star2");
+    const threeStar = document.getElementById("star3");
+    const fourStar = document.getElementById("star4");
+    const fiveStar = document.getElementById("star5");
+//testing the connection, currently it's null
+
+
+
+    oneStar.addEventListener("click", function() {
+        console.log(oneStar.value);
+        selectedStar.push(oneStar.value);
+        selectedStar.splice(0, selectedStar.length , oneStar.value);
+        // selectedStar.length = 0;
+        console.log(selectedStar);
+        return oneStar.value;
+        // return selectedStar.map(function (rating) {
+        //     console.log(rating);
+        //     return `<p>${rating}</p>`
+        //   });
+
+          
+        
+      });
+
+      twoStar.addEventListener("click", function() {
+        console.log(twoStar.value);
+        selectedStar.push(twoStar.value);
+        selectedStar.splice(0, selectedStar.length , twoStar.value);
+        console.log(selectedStar);
+          return twoStar.value;
+          
+        
+      });
+
+      threeStar.addEventListener("click", function() {
+        console.log(threeStar.value);
+        selectedStar.push(threeStar.value);
+        selectedStar.splice(0, selectedStar.length , threeStar.value);
+        console.log(selectedStar);
+        return threeStar.value;
+      });
+
+      fourStar.addEventListener("click", function() {
+        console.log(fourStar.value);
+        selectedStar.push(fourStar.value);
+        selectedStar.splice(0, selectedStar.length , fourStar.value);
+        console.log(selectedStar);
+        return fourStar.value;
+      });
+
+      fiveStar.addEventListener("click", function() {
+        console.log(fiveStar.value);
+        selectedStar.push(fiveStar.value);
+        selectedStar.splice(0, selectedStar.length , fiveStar.value);
+        console.log(selectedStar);
+        return fiveStar.value;
+      });
+
+
+
+};
+
+createReviewStars();
 
 
 
 const createReview = async () => {
-
     const formArray = [];
     const xyz = document.getElementsByClassName("form-control");
+    const starRating = createReviewStars();
+    console.log(starRating);
+    console.log(selectedStar);
+    formArray.push(xyz);
     let formInput = xyz[0];
 
+    // let formInput = formArray.map( forminput => {
+    //     console.log(forminput);
+    //     return forminput
+    // })
 
+
+    // let text = formInput.value;
     let text = formInput.value;
-    formArray.push(xyz);
-
+    let starIpnut = starRating;
     
 
-    const newArray = formArray.map(formArray => formArray);
-
-
-
-    formArray.forEach((formArray, index) => {
-
-});
 
 
     const newReview = {
         restaurantId: 1,
-        stars: 4,
+        stars: selectedStar,
+        // stars: starIpnut,
         text: text
     };
 
@@ -183,60 +237,44 @@ const createReview = async () => {
     });
 
     
-    let reviewWrapper = document.getElementsByClassName("reviewWrapper");
+    // let reviewWrapper = document.getElementsByClassName("reviewWrapper");
+  
+
+
+    const newReviewArray = [];
+    newReviewArray.push(newReview);
+console.log(newReviewArray);
+    function displayNewReview(newReview) {
+        return newReviewArray.map(function (addNew) {
+            console.log(addNew);
+          return `<div class="reviews"> <span class="card-description review-title"> ${addNew.text}</span><p class="review-title"> ${addNew.stars}</p></div>`;
+        //   return JSON.stringify(newReview)
+        });
+      }
+
 
 var z = document.createElement('p');
-
-
-z.innerHTML = JSON.stringify(newReview);
+// const z = displayNewReview(newReview);
+// const z = newReview;
+// const z = displayNewReview(newReview);
+z.innerHTML = displayNewReview(newReview);
 document.getElementById("newReviewContainer").appendChild(z);
 
+
+
+
 };
+
 
 
 
 
 //target star id to receive star rating
-const createReviewStars = async () => {
 
-
-    const oneStar = document.getElementById("star1");
-    const twoStar = document.getElementById("star2");
-    const threeStar = document.getElementById("star3");
-    const fourStar = document.getElementById("star4");
-    const fiveStar = document.getElementById("star5");
-//testing the connection, currently it's null
-    const testing = () => {
-        
-
-    };
-
-    oneStar.addEventListener("click", testing());
-
-      twoStar.addEventListener("click", function() {
-        
-      });
-
-      threeStar.addEventListener("click", function() {
-        
-      });
-
-      fourStar.addEventListener("click", function() {
-       
-      });
-
-      fiveStar.addEventListener("click", function() {
-        
-      });
-
-
-
-};
-
-createReviewStars();
 
 //print the restaurants and reviews with the average star rating
 const getReviewsWithRestaurants = async () => {
+    // const showReviews = await showReviewForm();
     const reviews = await getReviews();
     const restaurants = await getRestaurant();
     const restReviews = await filterReviews();
@@ -318,7 +356,7 @@ const reviewString = reviewIds.id;
         <h2 class="card-title ">${restaurants.name} (<span class="averagerating">${Reviews}</span>)
         
         <div class="card-author subtle">${restaurants.address}</span></div>
-        
+        <div class = "card-read" onclick=onclick="showReviewsAll()"> View Reviews </div>
         </div>
         
         <div class="arrow-down"></div>
@@ -327,7 +365,7 @@ const reviewString = reviewIds.id;
         
         ${reviewlist}
         <div id="newReviewContainer"></div>
-        <button type="submit" id="submit" onclick="showReviewForm()" class="reviewbutton">Leave a review</button>
+        <button type="submit" onclick="showReviewForm()" class="reviewbutton" value="${restaurants.id}" =>Leave a review</button>
         ${reviewForm}</div>
         
         
@@ -366,39 +404,101 @@ const addNewReview = async () => {
 
   addNewReview();
 
-  window.addEventListener('load', (event) => {
 
-    //     reviewForm = document.getElementsByClassName("review");
-    //     console.log(document.getElementById("reviewform"));
+//   const showReviewForm = async () => {
+//     // // reviewForm.classList.add("display");
+//     reviewForm = document.getElementsByClassName("reviewformstyle");
+//     // reviewForm = document.getElementById("reviewform");
+//     console.log(reviewForm);
+// const reviewFormArray = [];
+// reviewFormArray.push(reviewForm);
+// console.log(reviewFormArray);
+
+// // reviewFormArray.forEach(function (form) {
+//     // console.log(form);
     
-    //     if (reviewForm.style.display === "none") {
-    //         reviewForm.style.display = "block";
-    //     } else {
-    //         reviewForm.style.display = "none";
-        
-    // }
+//     if (reviewForm.style.display === "none") {
+//         reviewForm.style.display = "block";
+//             } else {
+//                 reviewForm.style.display = "none"; 
+//         }
+//       return;
     
+// //   });
 
-    console.log('page is fully loaded');
-  });
+//   };
+const reviewFormArray = [];
 
+const showReviewForm = async () => {
+    const restaurants = await getRestaurant();
 
-
-  const showReviewForm = async () => {
     // // reviewForm.classList.add("display");
-    reviewForm = document.getElementById("reviewform");
-    console.log(reviewForm);
+    restaurants.forEach((restaurants, index,) => {
+        let indexPosition = restaurants.id - 1;
+    reviewForm = document.getElementsByClassName("reviewformstyle");
+    reviewButton = document.getElementsByClassName("reviewbutton");
+    
+    reviewButtonId = reviewButton[indexPosition].value;
+    console.log(reviewForm[indexPosition].style.display);
     console.log("This works...");
-
-    if (reviewForm.style.display === "none") {
-        reviewForm.style.display = "block";
-    } else {
-        reviewForm.style.display = "none";
+    console.log(restaurants.id);
+    console.log(reviewButtonId);
+    
 
     
-}
+    reviewFormArray.push(indexPosition);
+    
+
+    
+        
+    });
+
+    console.log(reviewFormArray);
+
+    let formIndex = reviewFormArray.map( formindex => {
+        // console.log(forminput);
+        console.log(formindex);
+       
+
+        if (reviewForm[0].style.display === "none") {
+            console.log("working...");
+            reviewForm[0].style.display = "block";
+        } else {
+            reviewForm[0].style.display = "none";
+    
+            
+    }
+
+    });
+
+    
+
+
+
+
+
 
   };
 
 
-  
+
+  const showReviewsAll = async () => {
+
+    
+showReviewsButton = document.getElementsByClassName("card-read");
+reviewsContainerAllReviews = document.getElementsByClassName("reviews");
+    
+        
+
+       
+
+        if (reviewsContainerAllReviews.style.display === "none") {
+            console.log("working...");
+            reviewsContainerAllReviews.style.display = "block";
+        } else {
+            reviewsContainerAllReviews.style.display = "none";
+    
+            
+    }
+
+    };

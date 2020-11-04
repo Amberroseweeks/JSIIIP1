@@ -76,15 +76,11 @@
     },
     {
       "restaurantId": 1,
-      "stars": 1,
-      "text": "ok",
+      "stars": [
+        "5"
+      ],
+      "text": "This was great!",
       "id": 9
-    },
-    {
-      "restaurantId": 1,
-      "stars": 1,
-      "text": "njkn",
-      "id": 10
     }
   ]
 }
