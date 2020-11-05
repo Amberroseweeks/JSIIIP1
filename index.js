@@ -32,6 +32,14 @@ let addReviewText;
 let reviewsWithStars;
 let selectedStar = [];
 
+
+
+
+
+
+
+
+
 const getRestaurant = async () => {
     const response = await fetch("http://localhost:3000/restaurants");
     const restaurants = await response.json();
@@ -87,7 +95,7 @@ const addReviewForm = async () => {
    
  
     restaurants.forEach((restaurant, index) => {
-        console.log(restaurant.name);
+        
 
 
 
@@ -129,7 +137,7 @@ const createReviewStars = async () => {
 
 
     const oneStar = document.getElementById("star1");
-    console.log(oneStar);
+    
     const twoStar = document.getElementById("star2");
     const threeStar = document.getElementById("star3");
     const fourStar = document.getElementById("star4");
@@ -139,52 +147,46 @@ const createReviewStars = async () => {
 
 
     oneStar.addEventListener("click", function() {
-        console.log(oneStar.value);
+        
         selectedStar.push(oneStar.value);
         selectedStar.splice(0, selectedStar.length , oneStar.value);
-        // selectedStar.length = 0;
-        console.log(selectedStar);
-        return oneStar.value;
-        // return selectedStar.map(function (rating) {
-        //     console.log(rating);
-        //     return `<p>${rating}</p>`
-        //   });
-
-          
+        
+        
+        return oneStar.value;  
         
       });
 
       twoStar.addEventListener("click", function() {
-        console.log(twoStar.value);
+        
         selectedStar.push(twoStar.value);
         selectedStar.splice(0, selectedStar.length , twoStar.value);
-        console.log(selectedStar);
+        
           return twoStar.value;
           
         
       });
 
       threeStar.addEventListener("click", function() {
-        console.log(threeStar.value);
+        
         selectedStar.push(threeStar.value);
         selectedStar.splice(0, selectedStar.length , threeStar.value);
-        console.log(selectedStar);
+        
         return threeStar.value;
       });
 
       fourStar.addEventListener("click", function() {
-        console.log(fourStar.value);
+        
         selectedStar.push(fourStar.value);
         selectedStar.splice(0, selectedStar.length , fourStar.value);
-        console.log(selectedStar);
+        
         return fourStar.value;
       });
 
       fiveStar.addEventListener("click", function() {
-        console.log(fiveStar.value);
+        
         selectedStar.push(fiveStar.value);
         selectedStar.splice(0, selectedStar.length , fiveStar.value);
-        console.log(selectedStar);
+        
         return fiveStar.value;
       });
 
@@ -195,38 +197,46 @@ const createReviewStars = async () => {
 createReviewStars();
 
 
-
+//i'm having issues looping through the each iteration of the DOM elements. Right now I can only effect the first element
 const createReview = async () => {
+
+    const restaurants = await getRestaurant();
     const formArray = [];
-    const xyz = document.getElementsByClassName("form-control");
-    const starRating = createReviewStars();
-    console.log(starRating);
-    console.log(selectedStar);
-    formArray.push(xyz);
-    let formInput = xyz[0];
+   
+const xyz = document.getElementsByClassName("form-control");
+formArray.push(xyz);
 
-    // let formInput = formArray.map( forminput => {
-    //     console.log(forminput);
-    //     return forminput
-    // })
+//trying to loop through the form but the forEach will not work with 
+//DOM elements so I used [...]
+const newFormArray = [...document.getElementsByClassName("form-control")];
 
 
-    // let text = formInput.value;
-    let text = formInput.value;
-    let starIpnut = starRating;
+
+newFormArray.forEach((textarea, index, array) => {
+    
+});
+
+
+
+        
+        
+        const starRating = createReviewStars();
+
+        let formInput = xyz[0];
     
 
+        let text = formInput.value;
+        let starIpnut = starRating;
 
 
     const newReview = {
         restaurantId: 1,
         stars: selectedStar,
-        // stars: starIpnut,
         text: text
     };
 
 
-    // POST request - create a record in a database
+
     const newestReview = await fetch("http://localhost:3000/reviews", {
         method: "POST", 
         body: JSON.stringify(newReview),
@@ -236,27 +246,21 @@ const createReview = async () => {
         },
     });
 
-    
-    // let reviewWrapper = document.getElementsByClassName("reviewWrapper");
-  
-
 
     const newReviewArray = [];
     newReviewArray.push(newReview);
-console.log(newReviewArray);
+
+    //convert the JSON to HTML
     function displayNewReview(newReview) {
         return newReviewArray.map(function (addNew) {
-            console.log(addNew);
+            
           return `<div class="newreviews"> <span class="card-description review-title"> ${addNew.text}</span><p class="review-title"> ${addNew.stars}</p></div>`;
-        //   return JSON.stringify(newReview)
+
         });
       }
 
-
+//Append the new review to the container
 var z = document.createElement('p');
-// const z = displayNewReview(newReview);
-// const z = newReview;
-// const z = displayNewReview(newReview);
 z.innerHTML = displayNewReview(newReview);
 document.getElementById("newReviewContainer").appendChild(z);
 
@@ -269,18 +273,17 @@ document.getElementById("newReviewContainer").appendChild(z);
 
 
 
-//target star id to receive star rating
+
 
 
 //print the restaurants and reviews with the average star rating
 const getReviewsWithRestaurants = async () => {
-    // const showReviews = await showReviewForm();
+ 
     const reviews = await getReviews();
     const restaurants = await getRestaurant();
     const restReviews = await filterReviews();
     const infoCard = document.getElementsByClassName("infoCard");
 
-    // const addReviewText = addReviewText();
     restaurants.forEach((restaurants, index,) => {
         restId = restaurants.id;
     
@@ -293,7 +296,7 @@ const getReviewsWithRestaurants = async () => {
             starRating.push(reviews[index].stars);
             let sum = starRating.reduce((previous, current) => current += previous);
             let avg = Math.round(sum / starRating.length*100)/100;
-            console.log(Math.round(avg*100)/100);
+           
             
 
         avgReview = `<p class="averagerating" (${avg}) </p>`;
@@ -335,9 +338,7 @@ function getReviewsOk(reviews) {
         return review.text;
     });
 }
-getReviewsOk(sortReviewsArray);
 
-reviewsDisplay = getReviewsOk(sortReviewsArray);
 
 
 
@@ -402,7 +403,7 @@ const addNewReview = async () => {
 
   addNewReview();
 
-
+//toggle reviews
   const showReviewsAll = async () => {
 
     
@@ -411,7 +412,7 @@ reviewsContainerAllReviews = document.getElementsByClassName("reviews");
         
 
         if (reviewsContainerAllReviews[0].style.display === "none") {
-            console.log("working...");
+            
             reviewsContainerAllReviews[0].style.display = "block";
         } else {
             reviewsContainerAllReviews[0].style.display = "none";
@@ -421,6 +422,7 @@ reviewsContainerAllReviews = document.getElementsByClassName("reviews");
 
     };
 
+//toggle forms 
 const showReviewForm = async () => {
 
     reviewForm = document.getElementsByClassName("reviewformstyle");
@@ -429,7 +431,7 @@ const showReviewForm = async () => {
    
 
         if (reviewForm[0].style.display === "none") {
-            console.log("working...");
+          
             reviewForm[0].style.display = "block";
         } else {
             reviewForm[0].style.display = "none";
