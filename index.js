@@ -30,6 +30,9 @@ let avg;
 let myString;
 let addReviewText;
 let reviewsWithStars;
+let selectedStar = [];
+
+
 
 
 
@@ -89,35 +92,30 @@ const addReviewForm = async () => {
     const restaurants = await getRestaurant();
     const restReviews = await filterReviews();
 
-
-
-
-
-
-
-
    
  
-    restaurants.forEach((restaurants, index) => {
+    restaurants.forEach((restaurant, index) => {
+        
+
 
 
         // const reviewAverage = 
         reviewForm = ` 
-<div id="reviewform" class="reviewform">
+<div class="reviewformstyle">
         <label class="card-author subtle">How was your experience?</label>     
           <textarea class="form-control" rows="5"></textarea>
       
 
-      <fieldset class="rating">
+      <fieldset class="rating" onclick="createReviewStars ()">
       <input type="radio" id="star1" name="rating" value="1" /><label class = "full" for="star1" title="Sucks big time - 1 star"></label>
-      <input type="radio" id="star2" name="rating" value="2" /><label class = "full" for="star2" title="Kinda bad - 2 stars"></label>
-      <input type="radio" id="star3" name="rating" value="3" /><label class = "full" for="star3" title="Meh - 3 stars"></label>
+      <input type="radio"  id="star2" name="rating" value="2" /><label class = "full" for="star2" title="Kinda bad - 2 stars"></label>
+      <input type="radio"  id="star3" name="rating" value="3" /><label class = "full" for="star3" title="Meh - 3 stars"></label>
       <input type="radio" id="star4" name="rating" value="4" /><label class = "full" for="star4" title="Pretty good - 4 stars"></label>
-      <input type="radio" id="star5" name="rating" value="5" /><label class = "full" for="star5" title="Awesome - 5 stars"></label>   
+      <input type="radio"  id="star5" name="rating" value="5" /><label class = "full" for="star5" title="Awesome - 5 stars"></label>   
 
   </fieldset>
 
-  <button type="submit" id="submit" onclick="createReview ()" class="submitbutton">Submit${restaurants.id}</button>
+  <button type="submit" onclick="createReview ()" class="submitbutton">Submit</button>
   
     </div>
     </div>
@@ -126,52 +124,123 @@ const addReviewForm = async () => {
 
 
 
-
-
-
         
     });
 
-      return restaurants;
+      return restaurant;
 
 }
 
 addReviewForm();
 
+const createReviewStars = async () => {
 
 
+<<<<<<< HEAD
+const createReview = async () => {
+=======
+    const oneStar = document.getElementById("star1");
+    
+    const twoStar = document.getElementById("star2");
+    const threeStar = document.getElementById("star3");
+    const fourStar = document.getElementById("star4");
+    const fiveStar = document.getElementById("star5");
+//testing the connection, currently it's null
+
+
+>>>>>>> toggledisplay
+
+    oneStar.addEventListener("click", function() {
+        
+        selectedStar.push(oneStar.value);
+        selectedStar.splice(0, selectedStar.length , oneStar.value);
+        
+        
+        return oneStar.value;  
+        
+      });
+
+      twoStar.addEventListener("click", function() {
+        
+        selectedStar.push(twoStar.value);
+        selectedStar.splice(0, selectedStar.length , twoStar.value);
+        
+          return twoStar.value;
+          
+        
+      });
+
+      threeStar.addEventListener("click", function() {
+        
+        selectedStar.push(threeStar.value);
+        selectedStar.splice(0, selectedStar.length , threeStar.value);
+        
+        return threeStar.value;
+      });
+
+      fourStar.addEventListener("click", function() {
+        
+        selectedStar.push(fourStar.value);
+        selectedStar.splice(0, selectedStar.length , fourStar.value);
+        
+        return fourStar.value;
+      });
+
+      fiveStar.addEventListener("click", function() {
+        
+        selectedStar.push(fiveStar.value);
+        selectedStar.splice(0, selectedStar.length , fiveStar.value);
+        
+        return fiveStar.value;
+      });
+
+
+
+};
+
+createReviewStars();
+
+
+//i'm having issues looping through the each iteration of the DOM elements. Right now I can only effect the first element
 const createReview = async () => {
 
-
-
-
+    const restaurants = await getRestaurant();
     const formArray = [];
-    const xyz = document.getElementsByClassName("form-control");
-    let formInput = xyz[0];
+   
+const xyz = document.getElementsByClassName("form-control");
+formArray.push(xyz);
+
+//trying to loop through the form but the forEach will not work with 
+//DOM elements so I used [...]
+const newFormArray = [...document.getElementsByClassName("form-control")];
 
 
-    let text = formInput.value;
-    formArray.push(xyz);
 
+newFormArray.forEach((textarea, index, array) => {
+    
+});
+
+
+
+        
+        
+        const starRating = createReviewStars();
+
+        let formInput = xyz[0];
     
 
-    const newArray = formArray.map(formArray => formArray);
-
-
-
-    formArray.forEach((formArray, index) => {
-
-});
+        let text = formInput.value;
+        let starIpnut = starRating;
 
 
     const newReview = {
         restaurantId: 1,
-        stars: 4,
+        stars: selectedStar,
         text: text
     };
 
 
-    // POST request - create a record in a database
+
     const newestReview = await fetch("http://localhost:3000/reviews", {
         method: "POST", 
         body: JSON.stringify(newReview),
@@ -181,67 +250,44 @@ const createReview = async () => {
         },
     });
 
-    
-    let reviewWrapper = document.getElementsByClassName("reviewWrapper");
 
+    const newReviewArray = [];
+    newReviewArray.push(newReview);
+
+    //convert the JSON to HTML
+    function displayNewReview(newReview) {
+        return newReviewArray.map(function (addNew) {
+            
+          return `<div class="newreviews"> <span class="card-description review-title"> ${addNew.text}</span><p class="review-title"> ${addNew.stars}</p></div>`;
+
+        });
+      }
+
+//Append the new review to the container
 var z = document.createElement('p');
-
-
-z.innerHTML = JSON.stringify(newReview);
+z.innerHTML = displayNewReview(newReview);
 document.getElementById("newReviewContainer").appendChild(z);
 
-};
-
-
-
-
-//target star id to receive star rating
-const createReviewStars = async () => {
-
-
-    const oneStar = document.getElementById("star1");
-    const twoStar = document.getElementById("star2");
-    const threeStar = document.getElementById("star3");
-    const fourStar = document.getElementById("star4");
-    const fiveStar = document.getElementById("star5");
-//testing the connection, currently it's null
-    const testing = () => {
-        
-
-    };
-
-    oneStar.addEventListener("click", testing());
-
-      twoStar.addEventListener("click", function() {
-        
-      });
-
-      threeStar.addEventListener("click", function() {
-        
-      });
-
-      fourStar.addEventListener("click", function() {
-       
-      });
-
-      fiveStar.addEventListener("click", function() {
-        
-      });
 
 
 
 };
 
-createReviewStars();
+
+
+
+
+
+
 
 //print the restaurants and reviews with the average star rating
 const getReviewsWithRestaurants = async () => {
+ 
     const reviews = await getReviews();
     const restaurants = await getRestaurant();
     const restReviews = await filterReviews();
     const infoCard = document.getElementsByClassName("infoCard");
-    reviewForm = document.getElementById("reviewform");
-    // const addReviewText = addReviewText();
+
     restaurants.forEach((restaurants, index,) => {
         restId = restaurants.id;
     
@@ -254,7 +300,7 @@ const getReviewsWithRestaurants = async () => {
             starRating.push(reviews[index].stars);
             let sum = starRating.reduce((previous, current) => current += previous);
             let avg = Math.round(sum / starRating.length*100)/100;
-            console.log(Math.round(avg*100)/100);
+           
             
 
         avgReview = `<p class="averagerating" (${avg}) </p>`;
@@ -296,16 +342,11 @@ function getReviewsOk(reviews) {
         return review.text;
     });
 }
-getReviewsOk(sortReviewsArray);
 
-reviewsDisplay = getReviewsOk(sortReviewsArray);
 
-const showReviewForm = () => {
-    reviewForm.classList.remove("reviewform");
-    
-}
 
-// showReviewForm();
+
+
 
 const textReviewsFull = sortReviewsArray.join(",");
 const reviewString = reviewIds.id;
@@ -320,7 +361,7 @@ const reviewString = reviewIds.id;
         <h2 class="card-title ">${restaurants.name} (<span class="averagerating">${Reviews}</span>)
         
         <div class="card-author subtle">${restaurants.address}</span></div>
-        
+        <div class="card-read" onclick="showReviewsAll()"> View Reviews </div>
         </div>
         
         <div class="arrow-down"></div>
@@ -329,7 +370,7 @@ const reviewString = reviewIds.id;
         
         ${reviewlist}
         <div id="newReviewContainer"></div>
-        <button type="submit" id="submit" onclick="showReviewForm()" class="reviewbutton">Leave a review</button>
+        <button type="submit" onclick="showReviewForm()" class="reviewbutton" value="${restaurants.id}" =>Leave a review</button>
         ${reviewForm}</div>
         
         
@@ -365,3 +406,45 @@ const addNewReview = async () => {
   };
 
   addNewReview();
+
+//toggle reviews
+  const showReviewsAll = async () => {
+
+    
+showReviewsButton = document.getElementsByClassName("card-read");
+reviewsContainerAllReviews = document.getElementsByClassName("reviews");
+        
+
+        if (reviewsContainerAllReviews[0].style.display === "none") {
+            
+            reviewsContainerAllReviews[0].style.display = "block";
+        } else {
+            reviewsContainerAllReviews[0].style.display = "none";
+    
+            
+    }
+
+    };
+
+//toggle forms 
+const showReviewForm = async () => {
+
+    reviewForm = document.getElementsByClassName("reviewformstyle");
+    reviewButton = document.getElementsByClassName("reviewbutton");
+    
+   
+
+        if (reviewForm[0].style.display === "none") {
+          
+            reviewForm[0].style.display = "block";
+        } else {
+            reviewForm[0].style.display = "none";
+    
+            
+    }
+
+  };
+
+
+
+

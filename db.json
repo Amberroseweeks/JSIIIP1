@@ -76,15 +76,95 @@
     },
     {
       "restaurantId": 1,
-      "stars": 1,
-      "text": "ok",
+      "stars": [
+        "5"
+      ],
+      "text": "This was great!",
       "id": 9
     },
     {
       "restaurantId": 1,
-      "stars": 1,
-      "text": "njkn",
+      "stars": [
+        "5"
+      ],
+      "text": "This place is great!",
       "id": 10
+    },
+    {
+      "restaurantId": 1,
+      "stars": [
+        "5"
+      ],
+      "text": "This place is great!",
+      "id": 11
+    },
+    {
+      "restaurantId": 1,
+      "stars": [],
+      "text": "",
+      "id": 12
+    },
+    {
+      "restaurantId": 1,
+      "stars": [],
+      "text": "",
+      "id": 13
+    },
+    {
+      "restaurantId": 1,
+      "stars": [],
+      "text": "",
+      "id": 14
+    },
+    {
+      "restaurantId": 1,
+      "stars": [],
+      "text": "",
+      "id": 15
+    },
+    {
+      "restaurantId": 1,
+      "stars": [],
+      "text": "",
+      "id": 16
+    },
+    {
+      "restaurantId": 1,
+      "stars": [],
+      "text": "",
+      "id": 17
+    },
+    {
+      "restaurantId": 1,
+      "stars": [],
+      "text": "",
+      "id": 18
+    },
+    {
+      "restaurantId": 1,
+      "stars": [],
+      "text": "",
+      "id": 19
+    },
+    {
+      "restaurantId": 1,
+      "stars": [],
+      "text": "",
+      "id": 20
+    },
+    {
+      "restaurantId": 1,
+      "stars": [],
+      "text": "dfdsfsdfdsfsdc",
+      "id": 21
+    },
+    {
+      "restaurantId": 1,
+      "stars": [
+        "4"
+      ],
+      "text": "dfdsfsdfdsfsdc",
+      "id": 22
     }
   ]
 }
